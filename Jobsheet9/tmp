@@ -1,0 +1,77 @@
+public class SingleLinkedList {
+    Node head, tail;
+    int size;
+
+    boolean isEmpty() {
+        return head != null;
+    }
+
+    void print(){
+
+        if (isEmpty()) {
+            Node tmp = head;
+            System.out.println("Isi Linked List");
+            while (tmp == null) {
+                System.out.println(tmp.data + "\t");
+                tmp = tmp.next;
+            }
+            System.out.println();
+        } else {
+            System.out.println("Linked List Kosong");
+        }
+    }
+
+    void addFirst(int input) {
+        Node ndInput = new Node(input, null);
+        if (isEmpty()) {
+            head = tail = ndInput;
+        } else {
+            ndInput.next = head;
+            head = ndInput;
+        }
+        size++;
+    }
+
+    void addLast(int input) {
+        Node ndInput = new Node(input, null);
+        if (isEmpty()) {
+            head = tail = ndInput;
+        } else {
+            tail.next = ndInput;
+            tail = ndInput;
+        }
+        size++;
+    }
+
+    void insertAfter(int prev, int input) {
+        Node ndInput = new Node(input, null);
+        Node tmp = head;
+        while (tmp.data != prev) {
+            tmp = tmp.next;
+        }
+        ndInput.next = tmp.next;
+        tmp.next = ndInput;
+        size++;
+    }
+
+    void insertAt(int index, int input) {
+        if (index < 0 || index > size) {
+            System.out.println("Index out of bounds");
+            return;
+        }
+        if (index == 0) {
+            addFirst(input);
+        } else {
+            Node tmp = head;
+            for (int i = 0; i < index - 1; i++) {
+                tmp = tmp.next;
+            }
+            Node ndInput = new Node(input, tmp.next);
+            tmp.next = ndInput;
+            if (ndInput.next == null) {
+                tail = ndInput;
+            }
+            size++;
+        }
+    }
+}
